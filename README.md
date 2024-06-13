@@ -6,5 +6,4 @@ The framework is robust and modular, and can be used to build further apps. Feel
 
 ## Installation
 
-Clone the repository and copy the contents of this folder into your Roms/APPS folder.
-(Such that the term.sh file and the Z3apps folder are in the APPS folder.)
+Copy the [install-Z3apps.sh](https://github.com/Z3R0C1PH3R/Z3apps/blob/main/install-Z3apps.sh) file into your Roms/APPS folder and run it from the APPS menu.
