@@ -82,5 +82,9 @@ def draw_text(text, pos=(0,0)):
         t = b""
         for col in range(h):
             for char in text[i]:
-                t+=fonts.get(char, WHITE*w*4)[col*w*4:(col+1)*w*4]
+                if char in fonts:
+                    t+= fonts[char][col*w*4:(col+1)*w*4]
+                else:
+                    t+= WHITE*w
+                # t+=fonts.get(char, WHITE*w*4)[col*w*4:(col+1)*w*4]
         draw_part(t, (w*len(text[i]), h), (pos[0], pos[1]+i*h))
