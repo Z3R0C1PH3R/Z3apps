@@ -18,12 +18,12 @@ for i in range(MAX_RESULTS):
     r.append(f"""Title: {res[i]["snippet"]["title"]}\nBy: {res[i]["snippet"]["channelTitle"]}\nAt: {res[i]["snippet"]["publishedAt"]}\nDesc: {res[i]["snippet"]["description"]}""")
 
 index = ui.menu(r, "Select Video")
-player = subprocess.Popen(f"""mpv --no-terminal --input-ipc-server=/.config/mpv/socket https://www.youtube.com/watch?v={res[index]["id"]["videoId"]}""", shell=True)
+player = subprocess.Popen(f"""mpv --no-terminal --input-ipc-server=/tmp/mpv.socket https://www.youtube.com/watch?v={res[index]["id"]["videoId"]}""", shell=True)
 
 s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 while True:
     try:
-        s.connect("/.config/mpv/socket")
+        s.connect("/tmp/mpv.socket")
     except Exception as e:
         sleep(1)
     else:
