@@ -9,7 +9,6 @@ chmod a+rx /usr/bin/yt-dlp  # Make executable
 ln -fs /usr/bin/yt-dlp /usr/bin/youtube-dl
 echo "ytdl-format=bestvideo[height<=?480][width<=?640]+bestaudio/best" >> /etc/mpv/mpv.conf 
 apt install -y python3.8
-rm /usr/bin/python3
 ln -fs /usr/bin/python3.8 /usr/bin/python3
 mkdir -p temp
 git clone https://github.com/Z3R0C1PH3R/Z3apps.git temp
