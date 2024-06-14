@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 progdir=$(cd $(dirname $0); pwd)
 
 apt install -y mpv
