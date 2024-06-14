@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 progdir=$(cd $(dirname $0); pwd)
+exec >Z3apps-logfile.txt 2>&1
 
 apt install -y mpv
 wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/bin/yt-dlp
