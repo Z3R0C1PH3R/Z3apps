@@ -2,7 +2,7 @@
 progdir=$(cd $(dirname $0); pwd)
 
 apt install -y mpv
-curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o ~/usr/bin/yt-dlp
+wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/bin/yt-dlp
 chmod a+rx /usr/bin/yt-dlp  # Make executable
 ln -s /usr/bin/yt-dlp /usr/bin/youtube-dl
 echo ytdl-format=bestvideo[height<=?480][width<=?640]+bestaudio/best >> /etc/mpv/mpv.conf 
