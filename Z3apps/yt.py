@@ -18,6 +18,7 @@ for i in range(MAX_RESULTS):
     r.append(f""" \nTitle: {res[i]["snippet"]["title"]}\n \nBy: {res[i]["snippet"]["channelTitle"]}\nOn: {" At: ".join(res[i]["snippet"]["publishedAt"].split("T")).replace("Z","")}\n \n{res[i]["snippet"]["description"]}""")
 
 index = ui.menu(r, "Select Video")
+ui.display.draw_text("Loading...", (215, 221))
 player = subprocess.Popen(f"""mpv --no-terminal --input-ipc-server=/tmp/mpv.socket https://www.youtube.com/watch?v={res[index]["id"]["videoId"]}""", shell=True)
 
 s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
