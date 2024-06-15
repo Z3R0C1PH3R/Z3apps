@@ -1,5 +1,5 @@
 # Z3apps
-Apps made for the RG35xx+
+Apps made for the RG35xx Family
 
 Might work on other handhelds too, Output uses linux framebuffer so it is compatible with any linux installation.
 The framework is robust and modular, and can be used to build further apps. Feel free to contribute or fork this repository to make your own apps. Dont foget to give credit though!
