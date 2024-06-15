@@ -27,4 +27,4 @@ NOTE: The app uses a default API Key, but it has a limited Quota so the app migh
 
 Enjoy :)
 
-##### If you like my work and want to say thanks, or encourage me to do more, you can [buy me a coffee!](https://buymeacoffee.com/z3r0c1ph3r)
+##### If you like my work and want to say thanks, or encourage me to do more, you can [buy me a coffee](https://buymeacoffee.com/z3r0c1ph3r) or a [ko-fi!](https://ko-fi.com/z3r0c1ph3r)
