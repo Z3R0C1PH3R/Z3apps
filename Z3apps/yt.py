@@ -15,7 +15,7 @@ a = requests.get(f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={
 res = json.loads(a.text)["items"]
 r = []
 for i in range(MAX_RESULTS):
-    r.append(f"""Title: {res[i]["snippet"]["title"]}\nBy: {res[i]["snippet"]["channelTitle"]}\nAt: {res[i]["snippet"]["publishedAt"]}\nDesc: {res[i]["snippet"]["description"]}""")
+    r.append(f""" \nTitle: {res[i]["snippet"]["title"]}\n \nBy: {res[i]["snippet"]["channelTitle"]}\nOn: {" At: ".join(res[i]["snippet"]["publishedAt"].split("T")).replace("Z","")}\n \n{res[i]["snippet"]["description"]}""")
 
 index = ui.menu(r, "Select Video")
 player = subprocess.Popen(f"""mpv --no-terminal --input-ipc-server=/tmp/mpv.socket https://www.youtube.com/watch?v={res[index]["id"]["videoId"]}""", shell=True)
@@ -38,10 +38,30 @@ while True:
         break
 
     elif button == "DX" and state:
-        s.sendall(f"seek {state}0\n".encode())
+        s.sendall(f"seek {state*10}\n".encode())
 
-    # elif button == "DY" and state:
-
+    elif button == "DY" and state:
+        s.sendall(f"cycle volume {state*10}\n".encode())
 
     elif button == "A" and state:
         s.sendall("cycle pause\n".encode())
+
+    # elif button == "B" and state:
+    
+    elif button == "X" and state:
+        s.sendall("cycle mute\n".encode())
+
+    elif button == "Y" and state:
+        s.sendall("show-progress\n".encode())
+
+    elif button == "L1" and state:
+        s.sendall(f"seek -10 relative-percent\n".encode())
+
+    elif button == "R1" and state:
+        s.sendall(f"seek 10 relative-percent\n".encode())
+
+    elif button == "START" and state:
+        s.sendall(f"seek 100 absolute-percent\n".encode())
+
+    elif button == "SELECT" and state:
+        s.sendall(f"seek 0 absolute\n".encode())
