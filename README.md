@@ -13,7 +13,7 @@ NOTE: The app uses a default API Key, but it has a limited Quota so the app migh
 
 ## Usage
 
-1. You can use the yt app in the APPS menu to start the YouTube Search, a keyboard pops up
+1. You can use the YouTube-Z3 app in the APPS menu to start the YouTube Search, a keyboard pops up
 2. Use the Dpad to navivgate around, press A to enter the character.
 3. Select the ✓ button to continue, The search result window opens where you can select the video you like, use the Left and Right buttons on the Dpad to see details about the different results and press A on any of them to play that video
 4. While the video is playing you have the following controls:
