@@ -40,7 +40,7 @@ def take_input(a=open("/dev/input/event1", "rb")):
     r = "000000000000000000"
     while r == "000000000000000000":
         r = a.read(16).hex()[14:32]
-    return mappings.get(r, "UNKNOWN")
+    return mappings.get(r, "UNKNOWN 0")
 
 
 if __name__ == "__main__":
