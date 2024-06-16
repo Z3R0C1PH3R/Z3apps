@@ -34,7 +34,7 @@ def text_area(text, dim=display.RES2, pos=(0,0), padding=(1,1)):
     display.draw_screen(display.BLACK*display.FULL)
     return cur_page
 
-def menu(options, title="Select", dim=display.RES2, pos=(0,0), padding=(1,1)):
+def menu(options, title="Select", dim=display.RES2, pos=(0,0), padding=(1,1), images=[]): # images = [link, dim, pos]
     selecting = True
     cur_option = 0
     while selecting:
@@ -52,6 +52,9 @@ def menu(options, title="Select", dim=display.RES2, pos=(0,0), padding=(1,1)):
             display.draw_screen((display.WHITE*8+display.BLACK*10)*(dim[0]//18), (pos[0], pos[1]+dim[1]))
         display.draw_text("\n".join(pages[cur_page]), (pos[0]+padding[0], pos[1]+padding[1]))
 
+        if images:
+            display.draw_part(*images[cur_option])
+
         while True:
             button, state = buttoninput.take_input().split()
             state = int(state)
@@ -63,15 +66,21 @@ def menu(options, title="Select", dim=display.RES2, pos=(0,0), padding=(1,1)):
                     display.draw_screen((display.WHITE*8+display.BLACK*10)*(dim[0]//18), pos)
                 if cur_page < num_pages-1:
                     display.draw_screen((display.WHITE*8+display.BLACK*10)*(dim[0]//18), (pos[0], pos[1]+dim[1]))
+                if cur_page == 0 and images:
+                    display.draw_part(*images[cur_option])
                 display.draw_text("\n".join(pages[cur_page]), (pos[0]+padding[0], pos[1]+padding[1]))
 
             if button == "DX" and state and 0 <= state + cur_option < len(options):
                 cur_option += state 
                 break
 
-            if (button == "A" or button == "B" or button == "MENU") and state:
+            if (button == "A" or button == "B") and state:
                 selecting = False
                 break
+
+            if button=="MENU" and state:
+                display.draw_screen(display.BLACK*display.FULL)
+                return -1
 
     display.draw_screen(display.BLACK*display.FULL)
     return cur_option

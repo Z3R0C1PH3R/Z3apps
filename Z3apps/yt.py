@@ -7,17 +7,38 @@ import kb
 import socket
 from time import sleep
 
-query = kb.text_input()
 MAX_RESULTS = 10
+IMGPOS = (318,2)
+
+query = kb.text_input()
+if query == False:
+    exit()
 with open("youtube-api-v3.key") as file:
     KEY = file.read()
 a = requests.get(f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={query}&type=video&maxResults={MAX_RESULTS}&key={KEY}")
 res = json.loads(a.text)["items"]
 r = []
+imgs = []
 for i in range(MAX_RESULTS):
-    r.append(f""" \nTitle: {res[i]["snippet"]["title"]}\n \nBy: {res[i]["snippet"]["channelTitle"]}\nOn: {" At: ".join(res[i]["snippet"]["publishedAt"].split("T")).replace("Z","")}\n \n{res[i]["snippet"]["description"]}""")
+    searching_string = "Searching" + "." * i
+    ui.display.draw_text(searching_string, ((640-len(searching_string)*21)//2, 221))
+    time = res[i]["snippet"]["publishedAt"].replace("Z","").split("T")
+    r.append(f""" \nOn: {time[0]}\nAt: {time[1]}\n \nTitle: {res[i]["snippet"]["title"]}\n \nBy: {res[i]["snippet"]["channelTitle"]}\n \n{res[i]["snippet"]["description"]}""")
 
-index = ui.menu(r, "Select Video")
+    url = res[i]["snippet"]["thumbnails"]["medium"]["url"]
+    dim = (res[i]["snippet"]["thumbnails"]["medium"]["width"], res[i]["snippet"]["thumbnails"]["medium"]["height"])
+    with open("/tmp/ytthumb.jpg", "wb") as f:
+        f.write(requests.get(url).content)
+    
+    converter = subprocess.Popen(f"convert /tmp/ytthumb.jpg -format BGRA /tmp/ytthumb.bgra", shell=True)
+    converter.wait()
+
+    with open("/tmp/ytthumb.bgra", "rb") as f:
+        imgs.append([f.read(), dim, IMGPOS])
+
+index = ui.menu(r, "Result", images=imgs)
+if index == -1:
+    quit()
 ui.display.draw_text("Loading...", (215, 221))
 player = subprocess.Popen(f"""mpv --no-terminal --input-ipc-server=/tmp/mpv.socket https://www.youtube.com/watch?v={res[index]["id"]["videoId"]}""", shell=True)
 
