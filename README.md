@@ -31,7 +31,12 @@ NOTE: The app uses a default API Key, but it has a limited Quota so the app migh
 | L1/R1           | Seek 10% forward or backward  |
 | Menu            | Exit                          |
 
-
 Enjoy :)
+
+## Recent Changes
+
+1. Thumbnails were added.
+1. Fixed bugs (blank screen sometimes when started)
+1. Added Loading and Searching screens
 
 ##### If you like my work and want to say thanks, or encourage me to do more, you can [buy me a coffee](https://buymeacoffee.com/z3r0c1ph3r) or a [ko-fi!](https://ko-fi.com/z3r0c1ph3r)
