@@ -39,4 +39,8 @@ Enjoy :)
 1. Fixed bugs (blank screen sometimes when started)
 1. Added Loading and Searching screens
 
+## Known Issues
+
+1. Live streams take really long to load and then freeze up.
+
 ##### If you like my work and want to say thanks, or encourage me to do more, you can [buy me a coffee](https://buymeacoffee.com/z3r0c1ph3r) or a [ko-fi!](https://ko-fi.com/z3r0c1ph3r)
