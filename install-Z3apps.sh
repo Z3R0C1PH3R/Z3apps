@@ -3,7 +3,7 @@ set -e
 progdir=$(cd $(dirname $0); pwd)
 exec >Z3apps-logfile.txt 2>&1
 
-apt install -y mpv wget git python3.8
+apt install -y mpv wget git imagemagick python3.8
 
 ln -fs /usr/bin/python3.8 /usr/bin/python3
 
