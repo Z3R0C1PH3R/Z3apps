@@ -6,8 +6,8 @@ The framework is robust and modular, and can be used to build further apps. Feel
 
 ## Installation/Updating The App
 
-1. Copy the [install-Z3apps.sh](https://github.com/Z3R0C1PH3R/Z3apps/releases/download/v0.1/install-Z3apps.sh) file into your Roms/APPS folder and run it from the APPS menu after making sure the **WIFI is connected** and the **correct time** is set in settings.
-2. Your device would restart which means the install/update was successful, you may remove the install-Z3apps.sh file. If it doesnt restart and just exits then the install probably failed, check the log files.
+1. Copy the [install-Z3apps.sh](https://github.com/Z3R0C1PH3R/Z3apps/releases/download/v0.1/install-Z3apps.sh) file into your Roms/APPS folder and run it from the APPS menu after making sure that you are on the latest firmware, the **WIFI is connected**, the **correct time** is set in settings.
+3. Your device would restart which means the install/update was successful, you may remove the install-Z3apps.sh file. If it doesnt restart and just exits then the install probably failed, check the log files.
 
 NOTE: The app uses a default API Key, but it has a limited Quota so the app might not work then, To fix this, you can make your own YouTube API Key and place it in the Roms/APPS/Z3apps/youtube-api-v3.key file after step 1. Refer [Step By Step Guide to Generate a Key](https://github.com/Z3R0C1PH3R/Z3apps/wiki/Adding-your-own-API-Key).
 
