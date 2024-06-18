@@ -1,4 +1,6 @@
 import display
+import buttoninput
+from time import sleep
 
 KB_SIZE = (10,4)
 KB_POS = (5,480-64*4-2)
@@ -115,9 +117,11 @@ def handle_press(selected):
         return 2
     
 
-def text_input():
-    import buttoninput
-    from time import sleep
+def text_input(placeholder=""):
+    global buffer, cursor
+    if placeholder:
+        buffer=placeholder
+        cursor = len(buffer) - 1
     draw_kb_frame()
     draw_keys(0)
     select_cell()

@@ -74,9 +74,13 @@ def menu(options, title="Select", dim=display.RES2, pos=(0,0), padding=(1,1), im
                 cur_option += state 
                 break
 
-            if (button == "A" or button == "B") and state:
+            if button == "A" and state:
                 selecting = False
                 break
+
+            if button=="B" and state:
+                display.draw_screen(display.BLACK*display.FULL)
+                return -2
 
             if button=="MENU" and state:
                 display.draw_screen(display.BLACK*display.FULL)
