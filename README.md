@@ -15,12 +15,13 @@ NOTE: The app uses a default API Key, but it has a limited Quota so the app migh
 
 1. You can use the YouTube-Z3 app in the APPS menu to start the YouTube Search, a keyboard pops up
 2. Use the Dpad to navivgate around, press A to enter the character.
-3. Select the ✓ button to continue, The search result window opens where you can select the video you like, use the Left and Right buttons on the Dpad to see details about the different results and press A on any of them to play that video
+3. Select the ✓ button to continue, The search result window opens where you can select the video you like, use the Left and Right buttons on the Dpad to see details about the different results and press A on any of them to play that video, Press B to go back.
 4. While the video is playing you have the following controls:
 
 | Button          | Function                      |
 |-----------------|-------------------------------|
 | A               | Pause/Play                    |
+| B               | Go Back                       |
 | X               | Mute/Unmute                   |
 | Y               | Show Progress                 |
 | Dpad Right/Left | Seek 10s forward or backwards |
@@ -35,9 +36,11 @@ Enjoy :)
 
 ## Recent Changes
 
+1. B Works as a back button now.
+1. Fixed video stuck on buffering bug.
 1. Thumbnails were added.
-1. Fixed bugs (blank screen sometimes when started)
-1. Added Loading and Searching screens
+1. Fixed bugs (blank screen sometimes when started).
+1. Added Loading and Searching screens.
 
 ## Known Issues
 
