@@ -62,7 +62,7 @@ def load_thumbnails(res):
 
 def play_video(url:str):
     spinner("Loading...", -1)
-    player = subprocess.Popen(f"mpv --no-terminal --keep-open --input-ipc-server=/tmp/mpv.socket {url}", shell=True)
+    player = subprocess.Popen(f"""mpv --no-terminal --keep-open --input-ipc-server=/tmp/mpv.socket --ytdl-format="(bestvideo[height<=?480][width<=?640]+bestaudio/best)[vcodec~='^((he|a)vc|h26[45])'] / (bv*+ba/b)" {url}""", shell=True)
 
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     while True:
@@ -114,15 +114,18 @@ def play_video(url:str):
         elif button == "SELECT" and state:
             s.sendall(f"seek 0 absolute\n".encode())
 
-index = 0
 page = 0
 while True:
     if page < 1:
         res = get_urls()
+
     if res:
+        if page < 1:
+            text = format_results(res)
+            imgs = load_thumbnails(res)
+            index = 0
+
         page = 1
-        text = format_results(res)
-        imgs = load_thumbnails(res)
         index = ui.menu(text, "Result", cur_option=index, images=imgs)
         if index >= 0:
             page = 2
