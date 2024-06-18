@@ -10,17 +10,20 @@ from time import sleep
 MAX_RESULTS = 10
 IMGPOS = (318,2)
 KEY_FILE = "youtube-api-v3.key"
-SPINNER_STATES = ["-", "/", "|", "\\"]
+SPINNER_STATES = [" -", " /", " |", " \\"]
+query = ""
 
 def spinner(spinner_string, state):
-    spinner_string += SPINNER_STATES[state%len(SPINNER_STATES)]
+    if state>=0:
+        spinner_string += SPINNER_STATES[state%len(SPINNER_STATES)]
     ui.display.draw_text(spinner_string, ((640-len(spinner_string)*21)//2, 221))
 
 
-def get_urls(query=""):
+def get_urls():
+    global query
     query = kb.text_input(query)
     if query == False:
-        exit()
+        return False
     with open(KEY_FILE) as file:
         KEY = file.read()
     a = requests.get(f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={query}&type=video&maxResults={MAX_RESULTS}&key={KEY}")
@@ -58,7 +61,7 @@ def load_thumbnails(res):
 
 
 def play_video(url:str):
-    ui.display.draw_text("Loading...", (215, 221))
+    spinner("Loading...", -1)
     player = subprocess.Popen(f"mpv --no-terminal --keep-open --input-ipc-server=/tmp/mpv.socket {url}", shell=True)
 
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
@@ -77,7 +80,7 @@ def play_video(url:str):
         if button == "MENU" and state:
             s.sendall("quit\n".encode())
             player.wait()
-            quit()
+            return False
 
         elif button == "DX" and state:
             s.sendall(f"seek {state*10}\n".encode())
@@ -88,7 +91,10 @@ def play_video(url:str):
         elif button == "A" and state:
             s.sendall("cycle pause\n".encode())
 
-        # elif button == "B" and state:
+        elif button == "B" and state:
+            s.sendall("quit\n".encode())
+            player.wait()
+            return True
         
         elif button == "X" and state:
             s.sendall("cycle mute\n".encode())
@@ -108,11 +114,31 @@ def play_video(url:str):
         elif button == "SELECT" and state:
             s.sendall(f"seek 0 absolute\n".encode())
 
+index = 0
+page = 0
+while True:
+    if page < 1:
+        res = get_urls()
+    if res:
+        page = 1
+        text = format_results(res)
+        imgs = load_thumbnails(res)
+        index = ui.menu(text, "Result", cur_option=index, images=imgs)
+        if index >= 0:
+            page = 2
+            if not play_video(f"""https://www.youtube.com/watch?v={res[index]["id"]["videoId"]}"""):
+                break
+            else:
+                kb.reset_buffer()
+                ui.display.reset_screen()
+                page = 1
+        
+        elif index == -2:
+            kb.reset_buffer()
+            page = 0
 
-res = get_urls()
-text = format_results()
-imgs = load_thumbnails()
-
-index = ui.menu(text, "Result", images=imgs)
-
-play_video(f"""https://www.youtube.com/watch?v={res[index]["id"]["videoId"]}""")
+        elif index == -1:
+            break
+    
+    else:
+        break

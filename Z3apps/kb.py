@@ -121,7 +121,7 @@ def text_input(placeholder=""):
     global buffer, cursor
     if placeholder:
         buffer=placeholder
-        cursor = len(buffer) - 1
+        cursor = len(buffer)
     draw_kb_frame()
     draw_keys(0)
     select_cell()
