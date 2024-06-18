@@ -34,9 +34,8 @@ def text_area(text, dim=display.RES2, pos=(0,0), padding=(1,1)):
     display.draw_screen(display.BLACK*display.FULL)
     return cur_page
 
-def menu(options, title="Select", dim=display.RES2, pos=(0,0), padding=(1,1), images=[]): # images = [link, dim, pos]
+def menu(options, title="Select", cur_option=0, dim=display.RES2, pos=(0,0), padding=(1,1), images=[]): # images = [link, dim, pos]
     selecting = True
-    cur_option = 0
     while selecting:
         text = f"< {title}: {cur_option+1} >\n" + options[cur_option]
         max_chars = (dim[0]-2*padding[0])//display.w
@@ -74,9 +73,13 @@ def menu(options, title="Select", dim=display.RES2, pos=(0,0), padding=(1,1), im
                 cur_option += state 
                 break
 
-            if (button == "A" or button == "B") and state:
+            if button == "A" and state:
                 selecting = False
                 break
+
+            if button=="B" and state:
+                display.draw_screen(display.BLACK*display.FULL)
+                return -2
 
             if button=="MENU" and state:
                 display.draw_screen(display.BLACK*display.FULL)
