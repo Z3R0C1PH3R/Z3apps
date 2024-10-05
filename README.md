@@ -6,8 +6,8 @@ The framework is robust and modular, and can be used to build further apps. Feel
 
 ## Installation/Updating The App
 
-1. Copy the [install-Z3apps.sh](https://github.com/Z3R0C1PH3R/Z3apps/releases/download/v0.1/install-Z3apps.sh) file into your Roms/APPS folder and run it from the APPS menu after making sure that you are on the latest firmware, the **WIFI is connected**, the **correct time** is set in settings.
-3. Your device would restart which means the install/update was successful, you may remove the install-Z3apps.sh file. If it doesnt restart and just exits then the install probably failed, check the log files.
+1. Copy the [install-Z3apps.sh](https://github.com/Z3R0C1PH3R/Z3apps/releases/download/v0.2/install-Z3apps.sh) file into your Roms/APPS folder and run it from the APPS menu after making sure that you are on the latest firmware(tested on 240822), the **WIFI is connected**, the **correct time** is set in settings.
+3. After a few minutes your device would restart which means the install/update was successful, you may remove the install-Z3apps.sh file. If it doesnt restart and just exits then the install probably failed, check the log files.
 
 NOTE: The app uses a default API Key, but it has a limited Quota so the app might not work then, To fix this, you can make your own YouTube API Key and place it in the Roms/APPS/Z3apps/youtube-api-v3.key file after step 1. Refer [Step By Step Guide to Generate a Key](https://github.com/Z3R0C1PH3R/Z3apps/wiki/Adding-your-own-API-Key).
 
@@ -34,8 +34,14 @@ NOTE: The app uses a default API Key, but it has a limited Quota so the app migh
 
 Enjoy :)
 
-## Recent Changes
+## Recent Changes (v0.2)
 
+1. Installation Script now Displays progress.
+1. UI is much faster (Using numpy)
+
+
+## Older Changes (v0.1)
+   
 1. B Works as a back button now.
 1. Fixed video stuck on buffering bug.
 1. Thumbnails were added.
@@ -44,6 +50,6 @@ Enjoy :)
 
 ## Known Issues
 
-1. Live streams take really long to load and then freeze up.
+~1. Live streams take really long to load and then freeze up.~ (Seems to be fixed after the latest update)
 
 ##### If you like my work and want to say thanks, or encourage me to do more, you can [buy me a coffee](https://buymeacoffee.com/z3r0c1ph3r) or a [ko-fi!](https://ko-fi.com/z3r0c1ph3r)
