@@ -9,7 +9,7 @@ if
     python3 -m pip install numpy
     mkdir -p /temp
     git clone https://github.com/Z3R0C1PH3R/Z3apps.git /temp
-    pushd /temp/Z3apps
+    cd /temp/Z3apps
     python3 -c "import display; display.draw_text('Updating apt...')"
     python3 -c "import display; display.draw_text('Installing apt dependencies...')"
     apt install -y mpv wget
@@ -23,9 +23,7 @@ if
     ln -fs /usr/bin/yt-dlp /usr/bin/youtube-dl
 
     python3 -c "import display; display.draw_text('Installing apt dependencies...\nDone\nInstalling pip dependencies...\nDone\nInstalling yt-dlp...\nDone\nInstalling Z3apps...')"
-    popd
     cp -r /temp/Z3apps /temp/YouTube-Z3.sh $progdir/
-    pushd /temp/Z3apps
 then
     set +e
     python3 -c "import display; display.draw_text('Installing apt dependencies...\nDone\nInstalling pip dependencies...\nDone\nInstalling yt-dlp...\nDone\nInstalling Z3apps...\nDone\nInstall Successful\nRebooting...')"
