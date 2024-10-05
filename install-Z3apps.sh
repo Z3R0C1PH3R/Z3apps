@@ -15,7 +15,7 @@ if
     apt install -y mpv wget
 
     python3 -c "import display; display.draw_text('Installing apt dependencies...\nDone\nInstalling pip dependencies...')"
-    python3 -m pip install pillow
+    python3 -m pip install pillow requests
 
     python3 -c "import display; display.draw_text('Installing apt dependencies...\nDone\nInstalling pip dependencies...\nDone\nInstalling yt-dlp...')"
     wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/bin/yt-dlp
