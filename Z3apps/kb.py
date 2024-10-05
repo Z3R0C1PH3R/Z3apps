@@ -1,6 +1,7 @@
 import display
 import buttoninput
 from time import sleep
+import numpy as np
 
 KB_SIZE = (10,4)
 KB_POS = (5,480-64*4-2)
@@ -10,13 +11,9 @@ FONT_PADDING = (((display.RES[0]//KB_SIZE[0]-1) - w)//2, ((display.RES[0]//KB_SI
 
 br_fs = (210, 38)
 with open("font4.bin", "rb") as f:
-    font = f.read()
+    font = np.frombuffer(f.read(), dtype=np.uint32).reshape(-1, h, w)
 
-bottom_row = [[] for i in range(10)]
-for col in range(len(font)//(br_fs[0]*4)):
-    for i in range(br_fs[0]*4):
-        bottom_row[i//(4*w)].append(font[col*br_fs[0]*4+i:col*br_fs[0]*4+i+1])
-
+bottom_row = font
 
 SET1 =   "qwertyuiopasdfghjkl.zxcvbnm,?!"
 SET2 =   "QWERTYUIOPASDFGHJKL.ZXCVBNM,?!"
@@ -33,7 +30,7 @@ selected = [0,0]
 
 
 def draw_kb_frame():
-    display.draw_screen(display.BLACK*display.FULL)
+    display.draw_screen(display.BLACK.repeat(display.FULL))
     for j in range(KB_SIZE[1]):
         for i in range(KB_SIZE[0]):
             display.draw_rect(display.WHITE, (KB_CELL_SIZE, KB_CELL_SIZE), (KB_POS[0] + i*KB_CELL_SIZE, KB_POS[1] + j*KB_CELL_SIZE))
@@ -50,7 +47,7 @@ def draw_keys(S=0):
             display.draw_text(SETS[S][j*KB_SIZE[0]+i], (FONT_PADDING[0] + KB_POS[0] + i*KB_CELL_SIZE, FONT_PADDING[1] + KB_POS[1] + j*KB_CELL_SIZE))
     j = 3
     for i in range(len(bottom_row)):
-        display.draw_part(b"".join(bottom_row[i]), (w,h), (FONT_PADDING[0] + KB_POS[0] + i*KB_CELL_SIZE, FONT_PADDING[1] + KB_POS[1] + j*KB_CELL_SIZE))
+        display.draw_part(bottom_row[i], (w,h), (FONT_PADDING[0] + KB_POS[0] + i*KB_CELL_SIZE, FONT_PADDING[1] + KB_POS[1] + j*KB_CELL_SIZE))
 
 
 def draw_buffer(redraw=True):
@@ -59,7 +56,7 @@ def draw_buffer(redraw=True):
         display.draw_text(buffer[-1], (FONT_PADDING[0] + (i%max_buffer)*w, FONT_PADDING[1] + (i//max_buffer)*h))
         display.inv_part((w,h), (FONT_PADDING[0] + (cursor%max_buffer)*w, FONT_PADDING[1] + (cursor//max_buffer)*h))    
         return
-    display.draw_screen(display.BLACK*display.RES[0]*KB_POS[1])
+    display.draw_screen(display.BLACK.repeat(display.RES[0]*KB_POS[1]))
     display.draw_text(buffer, FONT_PADDING)
     display.inv_part((w,h), (FONT_PADDING[0] + (cursor%max_buffer)*w, FONT_PADDING[1] + (cursor//max_buffer)*h))
 
@@ -145,7 +142,7 @@ def text_input(placeholder=""):
             select_cell(selected)
             ret = handle_press(selected)
             if ret:
-                display.draw_screen(display.BLACK*display.FULL)
+                display.draw_screen(display.BLACK.repeat(display.FULL))
                 if ret == 1:
                     return buffer
                 elif ret == 2:

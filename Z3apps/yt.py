@@ -6,11 +6,15 @@ import ui
 import kb
 import socket
 from time import sleep
+from PIL import Image
+from io import BytesIO
+import numpy as np
 
 MAX_RESULTS = 10
 IMGPOS = (318,2)
 KEY_FILE = "youtube-api-v3.key"
-SPINNER_STATES = [" -", " /", " |", " \\"]
+SPINNER_STATES = ["-", "/", "|", "\\"]
+SPINNER_STATES.reverse()
 query = ""
 
 def spinner(spinner_string, state):
@@ -34,7 +38,7 @@ def get_urls():
 def format_results(res):
     r = []
     for i in range(MAX_RESULTS):
-        spinner("Searching", i)
+        spinner("Searching ", i)
         time = res[i]["snippet"]["publishedAt"].replace("Z","").split("T")
         r.append(f""" \nOn: {time[0]}\nAt: {time[1]}\n \nTitle: {res[i]["snippet"]["title"]}\n \nBy: {res[i]["snippet"]["channelTitle"]}\n \n{res[i]["snippet"]["description"]}""")
 
@@ -44,25 +48,19 @@ def format_results(res):
 def load_thumbnails(res):
     imgs = []
     for i in range(MAX_RESULTS):
-        spinner("Searching", i)
+        spinner("Searching ", i)
         url = res[i]["snippet"]["thumbnails"]["medium"]["url"]
         dim = (res[i]["snippet"]["thumbnails"]["medium"]["width"], res[i]["snippet"]["thumbnails"]["medium"]["height"])
        
-        with open("/tmp/ytthumb.jpg", "wb") as f:
-            f.write(requests.get(url).content)
-        
-        converter = subprocess.Popen(f"convert /tmp/ytthumb.jpg -format BGRA /tmp/ytthumb.bgra", shell=True)
-        converter.wait()
-
-        with open("/tmp/ytthumb.bgra", "rb") as f:
-            imgs.append([f.read(), dim, IMGPOS])
+        b = np.array(Image.open(BytesIO(requests.get(url).content))).astype(np.uint32)
+        imgs.append([np.uint32(0xFF000000) | b[:,:,0] << 16 | b[:,:,1] << 8 | b[:,:,2], dim, IMGPOS])
     
     return imgs
 
 
 def play_video(url:str):
     spinner("Loading...", -1)
-    player = subprocess.Popen(f"""mpv --no-terminal --keep-open --input-ipc-server=/tmp/mpv.socket --ytdl-format="(bestvideo[height<=?480][width<=?640]+bestaudio/best)[vcodec~='^((he|a)vc|h26[45])'] / (bv*+ba/b)" {url}""", shell=True)
+    player = subprocess.Popen(f"""mpv --fs --no-terminal --keep-open --input-ipc-server=/tmp/mpv.socket --ytdl-format="(bestvideo[height<=?480][width<=?640]+bestaudio/best)[vcodec~='^((he|a)vc|h26[45])'] / (bv*+ba/b)" {url}""", shell=True)
 
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     while True:
