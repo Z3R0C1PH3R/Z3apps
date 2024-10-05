@@ -27,12 +27,14 @@ if
 then
     set +e
     python3 -c "import display; display.draw_text('Installing apt dependencies...\nDone\nInstalling pip dependencies...\nDone\nInstalling yt-dlp...\nDone\nInstalling Z3apps...\nDone\nInstall Successful\nRebooting...')"
+    cd /
     rm -rf /temp
     sleep 5
     reboot
 else
     set +e
     echo "ERROR"
+    cd /
     rm -rf /temp
     python3 -c "import display; display.draw_text('.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\nERROR, CHECK LOGS')"
 fi
