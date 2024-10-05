@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 progdir=$(cd $(dirname $0); pwd)
-# exec >Z3apps-logfile.txt 2>&1
+exec >Z3apps-logfile.txt 2>&1
 
 if
     apt -y update
@@ -31,7 +31,7 @@ then
     python3 -c "import display; display.draw_text('Installing apt dependencies...\nDone\nInstalling pip dependencies...\nDone\nInstalling yt-dlp...\nDone\nInstalling Z3apps...\nDone\nInstall Successful\nRebooting...')"
     rm -rf /temp
     sleep 5
-    # reboot
+    reboot
 else
     set +e
     echo "ERROR"
