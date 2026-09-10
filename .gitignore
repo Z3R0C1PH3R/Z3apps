@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*-logfile.txt
+Z3rec/settings.json
+fb
+*.png
+*.wav
+*.mp4
